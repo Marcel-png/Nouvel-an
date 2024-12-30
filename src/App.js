@@ -17,38 +17,32 @@ export default function App() {
   const createTextParticles = (count) => {
     return Array.from({ length: count }).map((_, i) => {
       const angle = (Math.PI * 2 * i) / count;
-      const velocity = 120 + Math.random() * 80;
+      const velocity = 100 + Math.random() * 50;
       const dx = `${Math.cos(angle) * velocity}px`;
       const dy = `${Math.sin(angle) * velocity}px`;
       const rotate = `${Math.random() * 360}deg`;
       const wordObj = celebrationWords[Math.floor(Math.random() * celebrationWords.length)];
 
-      const pastelGradientClasses = [
-        "bg-gradient-to-r from-[#FFDDC1] via-[#FFE4E1] to-[#FDE2E4]",
-        "bg-gradient-to-r from-[#D5E8D4] via-[#E3F6F5] to-[#F2F7F2]",
-        "bg-gradient-to-r from-[#FEE1E8] via-[#FCD5CE] to-[#F8C8DC]",
-        "bg-gradient-to-r from-[#D5C6E0] via-[#EDE9FE] to-[#FFF7D6]",
+      const gradientClasses = [
+        "bg-gradient-to-r from-purple-400 via-pink-500 to-red-400",
+        "bg-gradient-to-r from-blue-400 via-teal-500 to-green-400",
+        "bg-gradient-to-r from-orange-400 via-yellow-500 to-red-400",
+        "bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-400",
       ];
 
       const randomGradient =
-        pastelGradientClasses[Math.floor(Math.random() * pastelGradientClasses.length)];
+        gradientClasses[Math.floor(Math.random() * gradientClasses.length)];
 
       return (
         <div
           key={i}
-          className={`absolute animate-text-spark font-bold bg-clip-text text-transparent 
-                     ${randomGradient} tracking-wider animate-pulse`}
+          className={`absolute animate-particle font-bold bg-clip-text text-transparent ${randomGradient}`}
           style={{
             '--dx': dx,
             '--dy': dy,
             '--rotate': rotate,
             fontSize: `${wordObj.size}rem`,
-            animation: `shake 2s infinite, spin 4s linear infinite`,
-            textShadow: `
-              0 0 3px rgba(255,255,255,0.7),
-              0 0 5px rgba(255,255,255,0.5),
-              0 0 7px rgba(255,255,255,0.3)
-            `,
+            animation: `float 3s ease-in-out infinite`,
           }}
         >
           {wordObj.text}
@@ -58,34 +52,16 @@ export default function App() {
   };
 
   const createFirework = (position, delay) => {
-    const pastelTrailColors = [
-      "from-purple-200 via-pink-100 to-transparent",
-      "from-yellow-200 via-orange-100 to-transparent",
-      "from-blue-200 via-indigo-100 to-transparent",
-      "from-green-200 via-emerald-100 to-transparent",
-      "from-red-200 via-rose-100 to-transparent",
-    ];
-
-    const randomTrail = pastelTrailColors[Math.floor(Math.random() * pastelTrailColors.length)];
-    const launchHeight = `-${200 + Math.random() * 300}px`;
-
     return (
       <div
-        className={`absolute ${position} bottom-0 group`}
+        className={`absolute ${position} bottom-0`}
         style={{
           animationDelay: `${delay}ms`,
         }}
       >
-        {/* Traînée lumineuse */}
-        <div className="absolute w-[2px] h-full bg-gradient-to-t from-white via-yellow-50 to-transparent opacity-30"></div>
-
         {/* Fusée principale */}
-        <div
-          className={`w-1.5 h-6 bg-gradient-to-t ${randomTrail} animate-launch 
-                     rounded-full blur-[0.5px]`}
-          style={{ '--launch-height': launchHeight }}
-        >
-          <div className="relative">{createTextParticles(15)}</div>
+        <div className="relative">
+          {createTextParticles(15)}
         </div>
       </div>
     );
@@ -97,11 +73,11 @@ export default function App() {
       <div className="absolute inset-0 bg-[radial-gradient(white_1px,transparent_1px)] bg-[size:50px_50px] opacity-10"></div>
 
       {/* Feux d'artifice */}
-      {createFirework('left-[10%]', 0)}
-      {createFirework('left-[30%]', 800)}
-      {createFirework('left-[50%]', 1600)}
-      {createFirework('left-[70%]', 2400)}
-      {createFirework('left-[90%]', 3200)}
+      {createFirework("left-[10%]", 0)}
+      {createFirework("left-[30%]", 800)}
+      {createFirework("left-[50%]", 1600)}
+      {createFirework("left-[70%]", 2400)}
+      {createFirework("left-[90%]", 3200)}
 
       {/* Formulaire */}
       <div className="flex items-center justify-center h-full">
@@ -130,3 +106,4 @@ export default function App() {
     </div>
   );
 }
+
