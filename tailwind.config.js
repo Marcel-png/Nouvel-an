@@ -1,4 +1,15 @@
-/** @type {import('tailwindcss').Config} */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(var(--rotate));
+  }
+  50% {
+    transform: translate(var(--dx), var(--dy)) rotate(calc(var(--rotate) + 180deg));
+  }
+}
+
+.animate-particle {
+  animation: float 3s ease-in-out infinite;
+}/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
